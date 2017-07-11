@@ -1,0 +1,27 @@
+{
+  "name": "aquaponics-app",
+  "homepage": "https://github.com/ddi-aquaponics/aquaponics-app",
+  "authors": [
+    "Matthew Manspeaker <matt.manspeaker@gmail.com>"
+  ],
+  "description": "Front-end for aquaponics app",
+  "main": "app.module.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "crypto-js": "^3.1.6",
+    "angular-route": "^1.5.8",
+    "angular-ui-bootstrap": "^2.0.0",
+    "angular-animate": "^1.5.8",
+    "angular-bootstrap-toggle-switch": "^0.5.6"
+  }
+}

@@ -1,0 +1,78 @@
+<navbar></navbar>
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-center">Sensor Readings</div>
+            <div class="panel-body">
+                <p>
+                Temperature: {{displayCelsius ? celsius : fahrenheit}}
+                <a class="btn btn-info pull-right" ng-click="changeTempDisplay()">Switch to {{displayCelsius ? 'fahrenheit' : 'celsius'}}</a>
+                </p>
+                <p>Humidity: {{humidity}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div uib-carousel active="active" interval="carousel.interval" template-url="templates/carousel.template.html">
+<div uib-slide ng-repeat="slide in carousel.slides track by slide.id" index="slide.id" template-url="templates/slide.template.html">
+    <div class="panel">
+        <div class="panel-body" style="padding:0px">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Camera</div>
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <!--<feed></feed>-->
+                                <div class="row">
+                                    <div class="panel">
+                                        <h3><a ng-href="{{slide.feedLink}}" target="_blank">Tank: {{slide.id}}</a></h3>
+                                        <iframe height="400" width="600" ng-src="{{slide.feedUrl}}"></iframe>
+                                    </div>
+                                </div>
+                                <div class="row">
+				    <div class=col-md-5 >
+					<label for="maxFeedUnits">Max units per day (0 = unlimited):</label>
+			            	<input name="maxFeedUnits" type="text" class="form-control" ng-model="slide.maxFeedUnits" ng-disabled="!slide.maxFeedUnitsUnlocked" style="display:inline-block; width:50px">
+				    	<div ng-if="isAdminUser()" style="display:inline-block">
+					    <button ng-if="slide.maxFeedUnitsUnlocked" type="button" class="btn btn-success" ng-click="setMaxFeedUnits(slide, slide.maxFeedUnits)">
+					    	<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;&nbsp;Save
+					    </button>
+					    <button ng-if="!slide.maxFeedUnitsUnlocked" type="button" class="btn btn-success" ng-click="slide.maxFeedUnitsUnlocked = true">
+					    	<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
+					    </button>
+					</div>
+				    </div>
+                                    <div class="col-md-4">					
+                                        <label for="unitsDD">
+                                            Units:
+                                            <select name="unitsDD" ng-model="slide.units" ng-options="i as i for i in [1,2,3,4,5,6,7,8,9,10] track by i"></select>
+                                        </label>
+                                        <a class="btn btn-success" ng-click="startFeeder(slide)" ng-disabled="slide.feedingInProgress">{{slide.feedingInProgress ? 'Feeding...' : 'Feed!'}}</a>
+                                        <a class="btn btn-danger" ng-click="stopFeeder(slide)" ng-disabled="!slide.feedingInProgress">Stop Feeder</a>
+                                    </div>
+				    
+                                    <div class="col-md-2">
+                                        <div ng-click="toggleLight(slide)" style="cursor:pointer">
+                                            <toggle-switch ng-model="slide.light" knob-label="Light" class="switch-warning" style="pointer-events: none"></toggle-switch>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+					<b>Water temp:</b> {{slide.watertemp}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="panel-heading" style="border-radius: 0px">Scheduling</div>
+                    <div class="panel-body" ng-if="isAdminUser()">
+                            <scheduling active="active" config="configurations" slideid="slide.id"></scheduling>
+                    </div>	
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

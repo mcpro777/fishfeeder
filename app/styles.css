@@ -1,0 +1,50 @@
+nav a{
+	cursor:pointer;
+}
+
+.glyphicon-chevron-left{
+	color:black;
+}
+
+.glyphicon-chevron-right{
+	color:black;
+}
+
+.carousel-prev{
+	position:absolute;
+	top:50%;
+	left:1%;
+	font-size:50px;
+	
+
+}
+
+.carousel-prev{
+	position:absolute;
+	top:50%;
+	left:1%;
+	font-size:50px;
+	color: #337ab7;
+	opacity: .5;
+}
+
+.carousel-prev:hover{
+	color: #337ab7;
+	cursor: pointer;
+	opacity: 1;
+}
+
+.carousel-next{
+	position:absolute;
+	top:50%;
+	right:1%;
+	font-size:50px;
+	color: #337ab7;
+	opacity: .5;
+}
+
+.carousel-next:hover{
+	color: #337ab7;
+	cursor: pointer;
+	opacity: 1;
+}

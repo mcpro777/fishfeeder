@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html style="height: 100vh; width:100vw;margin:0;">
+<head>
+<title>RPi Cam Feed</title>
+<script>
+	var getQueryString = function ( field, url ) {
+	    var href = url ? url : window.location.href;
+	    var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+	    var string = reg.exec(href);
+	    return string ? string[1] : null;
+	};
+	
+	var mjpeg_img; 
+	var baseUrl = '';
+	 
+	function reload_img () {
+	  //mjpeg_img.src = "http://" + baseUrl + "/html/cam_pic.php?time=" + new Date().getTime();
+	  mjpeg_img.src = 'http://' + window.location.hostname + '/camImage?ip=' + baseUrl + '&time=' + new Date().getTime();
+	}
+	function error_img () {
+	  setTimeout(reload_img, 1000);
+	}
+	function init() {
+	  baseUrl = getQueryString('ip');
+	  mjpeg_img = document.getElementById("mjpeg_dest");
+	  //mjpeg_img.onload = reload_img;
+	  //mjpeg_img.onerror = error_img;
+	  reload_img();
+
+	  setInterval(reload_img, 200);
+	  //setTimeout('init();', 1000);
+	}
+</script>
+</head>
+  <body style="padding:0;margin:0;height: 100vh; width:100vw;overflow:hidden;" onload="init()">
+    <center>
+      <div><img style="height: 100vh; width:100vw;" id="mjpeg_dest" /></div>
+    </center>
+ </body>
+</html>

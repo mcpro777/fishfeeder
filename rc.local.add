@@ -1,0 +1,9 @@
+#GO TO APP DIRECTORY
+su pi
+cd /home/pi/aquaponics-app
+
+#START MASTER AQUAPONICS SERVER
+sudo forever start master-server.js
+
+#START SCHEDULE RUNNER
+sudo forever start schedule-runner.js

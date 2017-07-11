@@ -1,0 +1,40 @@
+<navbar></navbar>
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-center">Configuration</div>
+            <div class="panel-body">
+		<div class="row" style="margin-top: .5rem; margin-bottom: 2rem" ng-repeat="config in configurations">
+			<ng-form name="configIpForm">
+			    <div class="col-md-2 text-center">
+			        {{config.name}}
+			    </div>
+			    <div class="col-md-6">
+				<div class="input-group">
+				    <span class="input-group-addon">
+					<span class="glyphicon glyphicon-globe"></span>
+			 	    </span>
+			            <input type="text" class="form-control" value="Enter IP address" ng-model="config.ipAddress" ng-disabled="!config.unlockedForEdit">
+				</div>
+			    </div>
+			    <div class="col-md-4">
+			        <button ng-if="config.unlockedForEdit" type="button" class="btn btn-success pull-right" ng-click="saveIpAddress(config)">
+				    <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;&nbsp;Save
+				</button>	
+				<button ng-if="!config.unlockedForEdit" type="button" class="btn btn-success pull-right" ng-click="unlockIpAddress(config)">
+				    <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
+				</button>	        
+			    </div>
+			</ng-form>
+		</div>		
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

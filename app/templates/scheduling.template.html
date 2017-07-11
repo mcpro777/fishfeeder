@@ -1,0 +1,50 @@
+<div class="row" ng-if="!newSchedule && !schedules.length">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-info" ng-click="createNewSchedule()">New</button>
+    </div>
+</div>
+
+<div class="row" style="margin-top: .5rem;" ng-repeat="schedule in schedules">
+    <div class="col-md-3">
+        ID: {{schedule._id}}
+    </div>
+    <div class="col-md-4" ng-form="scheduleTimeForm_{{schedule._id}}">
+        <label for="scheduleTime_{{schedule._id}}">
+            Time of day:
+            <input name="scheduleTime_{{schedule._id}}" type="text" required ng-model="schedule.time" ng-change="isPristine(schedule._id); allPristine();" placeholder="H:mm:ss (24hr time)" />
+        </label>
+    </div>
+    <div class="col-md-2" ng-form="scheduleUnitsForm_{{schedule._id}}">
+        <label for="scheduleUnits_{{schedule._id}}">
+            Units:
+            <select name="scheduleUnits_{{schedule._id}}" ng-change="isPristine(schedule._id); allPristine();" ng-model="schedule.units" required ng-options="i as i for i in [1,2,3,4,5,6,7,8,9,10] track by i"></select>
+        </label>
+    </div>
+    <div class="col-md-3">
+        <button type="button" class="btn btn-success" ng-disabled="pristine[schedule._id]" ng-click="updateSchedule(schedule)">Update</button>
+        <button type="button" class="btn btn-danger" ng-click="deleteSchedule(schedule)">Delete</button>
+        <button type="button" class="btn btn-info" ng-click="createNewSchedule()" ng-disabled="!pristineAll" ng-if="!newSchedule && $last">New</button>
+    </div>
+</div>
+
+<div class="row" style="margin-top: .5rem;" ng-if="newSchedule">
+    <div class="col-md-3">
+        **New Schedule**
+    </div>
+    <div class="col-md-4" ng-form="scheduleTimeForm_new">
+        <label for="scheduleTime_new">
+            Time of day:
+            <input name="scheduleTime_new" type="text" required ng-model="newSchedule.time" placeholder="H:mm:ss (24hr time)" />
+        </label>
+    </div>
+    <div class="col-md-2" ng-form="scheduleUnitsForm_new">
+        <label for="scheduleUnits_new">
+            Units:
+            <select name="scheduleUnits_new" ng-model="newSchedule.units" required ng-options="i as i for i in [1,2,3,4,5,6,7,8,9,10] track by i"></select>
+        </label>
+    </div>
+    <div class="col-md-3">
+        <button type="button" class="btn btn-primary" ng-disabled="!(newSchedule.time && newSchedule.units)" ng-click="saveNewSchedule()">Save</button>
+        <button type="button" class="btn btn-default" ng-click="cancelNewSchedule()">Cancel</button>
+    </div>
+</div>
